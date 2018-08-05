@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     initOverlay (map) {
-
       var self = this;
       Overlay.prototype = new google.maps.OverlayView();
 
@@ -73,14 +72,11 @@ export default {
         this.map_ = map;
         // Explicitly call setMap on this overlay.
         this.setMap(map);
-
         var overlay = this;
         this.dragendListener = google.maps.event.addListener(map, 'dragend', function () {
           overlay._div.style.visibility = "hidden";
         });
-
       }
-
 
       Overlay.prototype.setPosition = function(position) {
         position = position || this.position;
@@ -117,39 +113,32 @@ export default {
         div.style.zIndex = 10000;
         this._div = div;
         this.visible = true;
-
         var panes = this.getPanes();
         panes.overlayLayer.appendChild(div);
         panes.overlayMouseTarget.appendChild(div);
-
         var onClick = function() {
           if (self.onClick !== undefined) {
             self.onClick(self.marker);
           }
         };
-
         self.touchListener = google.maps.event.addDomListener(div, 'touchstart', onClick);
         self.clickListener = google.maps.event.addDomListener(div, 'mousedown', onClick);
-
       };
 
       Overlay.prototype.draw = _.debounce(function(e) {
         if(!this._div) {
           return;
         }
-
         if (self.previousLat !== self.position.lat() && self.previousLng !== self.position.lng()) {
           var div = this._div;
           div.innerHTML = self.$el.innerHTML;
         }
         self.previousLat = self.position.lat();
         self.previousLng = self.position.lng();
-
         // Retrieve the south-west and north-east coordinates of this overlay
         // in LatLngs and convert them to pixel coordinates.
         // We'll use these coordinates to resize the div.
         this.setPosition(self.position);
-
       }, 10);
 
       // The onRemove() method will be called automatically from the API if
