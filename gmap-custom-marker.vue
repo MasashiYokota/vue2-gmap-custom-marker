@@ -9,7 +9,15 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 import _ from 'underscore';
 export default {
   mixins: [VueGoogleMaps.MapElementMixin],
-  props: ['marker', 'onClick'],
+  props: {
+    marker: {
+      type: Object,
+      required: true,
+    },
+    onClick: {
+      type: Function,
+    },
+  },
   watch: {
     marker: function (val) {
       this.$overlay.draw();
