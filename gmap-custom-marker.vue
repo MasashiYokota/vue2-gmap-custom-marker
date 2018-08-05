@@ -30,13 +30,6 @@ export default {
     }
   },
   computed: {
-    bounds () {
-      var lat = parseFloat(this.marker.latitude);
-      var lng = parseFloat(this.marker.longitude);
-      return new google.maps.LatLngBounds(
-        new google.maps.LatLng(lat, lng),
-        new google.maps.LatLng(lat + 0.01, lng + 0.01));
-    },
     position () {
       var self = this;
       return {
