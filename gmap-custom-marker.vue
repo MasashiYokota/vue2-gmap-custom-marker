@@ -95,7 +95,7 @@ export default {
             setPosition();
           } else {
             //delayed left/top calculation when width/height are not set instantly
-            setTimeout(setPosition, 300);
+            setTimeout(setPosition, 100);
           }
         }
       };
