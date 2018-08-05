@@ -16,6 +16,15 @@ export default {
     },
     onClick: {
       type: Function,
+      required: false,
+    },
+    offsetX: {
+      type: Number,
+      required: false,
+    },
+    offsetY: {
+      type: Number,
+      required: false,
     },
   },
   watch: {
@@ -84,9 +93,11 @@ export default {
         if (this.getProjection() && typeof position.lng == 'function') {
           var setPosition = function() {
             if (!_this.getProjection()) { return; }
+            var offsetX = (_this.offsetX === undefined || this.offsetX === null) ? (_this._div.offsetWidth / 2) : _this.offsetX;
+            var offsetY = (_this.offsetY === undefined || this.offsetY === null) ? (_this._div.offsetHeight + 10) : _this.offsetY; // 10px for anchor
             var posPixel = _this.getProjection().fromLatLngToDivPixel(self.position);
-            var x = Math.round(posPixel.x - (_this._div.offsetWidth/2));
-            var y = Math.round(posPixel.y - _this._div.offsetHeight - 10); // 10px for anchor
+            var x = Math.round(posPixel.x - offsetX);
+            var y = Math.round(posPixel.y - offsetY);
             _this._div.style.left = x + "px";
             _this._div.style.top = y + "px";
             _this._div.style.visibility = "visible";
