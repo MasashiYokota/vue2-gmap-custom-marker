@@ -121,7 +121,7 @@ export default {
         div.style.borderWidth = '0px';
         div.style.position = 'absolute';
         div.style.display = 'inline-block';
-        div.style.zIndex = 10000;
+        div.style.zIndex = 1;
         this._div = div;
         this.visible = true;
         var panes = this.getPanes();
