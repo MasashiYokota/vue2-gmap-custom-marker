@@ -1,88 +1,27 @@
-Custom marker component for vue 2 js google map
------------------------------------------------
+# vue2-gmap-custom-marker
 
-`npm i vue2-gmap-custom-marker`
+> A Vue.js compoment for Custom Overlay of Google Map API
 
-https://www.npmjs.com/package/vue2-gmap-custom-marker
+## Build Setup
 
-This component let user display custom html content on the map using Overlay.
-This component is an adaptation of the google map V3 overlay code sample with some great ideas from angularjs google map https://ngmap.github.io/ from this component https://github.com/allenhwkim/angularjs-google-maps/blob/master/directives/custom-marker.js
+``` bash
+# install dependencies
+npm install
 
-This project is a plugin for https://github.com/xkjyeah/vue-google-maps
+# serve with hot reload at localhost:8080
+npm run dev
 
-Sample
-------
+# build for production with minification
+npm run build
 
-![custom markers on vue google map](sample.png)
+# build for production and view the bundle analyzer report
+npm run build --report
 
-How to
-------
+# run unit tests
+npm run unit
 
-Here is how to use this component
-
- * import the component and use it in your own vue map component
-
-
-
-```
-import GmapCustomMarker from 'vue2-gmap-custom-marker'; 
-
-[...]
-
-components: {
-    'gmap-custom-marker': GmapCustomMarker
-},
+# run all tests
+npm test
 ```
 
-
-```
-<gmap-custom-marker
-  :key="marker.id + (selectedMarker.id === marker.id ? '-force-refresh' : 0)"
-  v-for="marker in places"
-  :marker="marker"
-  :onClick="placeClick"
-  class="">
-  >
-      <img src="http://lorempixel.com/800/600/nature/" />
-      <my-component :place="marker"></my-component>
-</gmap-custom-marker>
-```
-
-At the moment, the component api looks like :
-  
-  * handles onClick callback and give as first argument the given prop `:marker`
-
-```
-methods: {
-   placeClick (marker) {
-       console.log('this marker was clicked', marker)
-   }
-}
-```
-
- * display places depending on their lng lat values
-
-```
-computed: {
-   places () {
-      return [
-        {
-          latitude: 50.60229509638775, 
-          longitude: 3.0247059387528408 
-        }
-      ]
-   }
-}
-```
- 
- * refresh management using vue key change (this is a kind of hack)
-```
- :key="marker.id + (marker.condition ? '-refresh-tag' : 0)"
-```
-
-Licence
--------
-
-MIT
-https://fr.wikipedia.org/wiki/Licence_MIT
-
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
