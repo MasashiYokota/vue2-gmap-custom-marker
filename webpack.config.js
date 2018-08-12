@@ -37,10 +37,10 @@ module.exports = [
   {
     entry: path.resolve(__dirname + '/src/gmap-custom-marker.vue'),
     output: {
-      // path: path.resolve(__dirname, '/dist'),
+      path: path.resolve(__dirname, 'dist'),
       filename: 'gmap-custom-marker.js',
       libraryTarget: 'umd',
-      library: 'GmapCustomMarker',
+      library: 'vue2-gmap-custom-marker',
     }
   })
 ];
