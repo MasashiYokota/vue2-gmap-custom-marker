@@ -9,7 +9,7 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 import _ from 'underscore';
 export default {
   mixins: [VueGoogleMaps.MapElementMixin],
-  props: ['marker', 'onClick'],
+  props: ['marker', 'onClick', 'offsetX', 'offsetY'],
   watch: {
     marker: function (val) {
       this.$overlay.draw();
@@ -65,21 +65,17 @@ export default {
 
       var self = this;
       Overlay.prototype = new google.maps.OverlayView();
-
       /** @constructor */
       function Overlay(map) {
         // Initialize all properties.
         this.map_ = map;
         // Explicitly call setMap on this overlay.
         this.setMap(map);
-
         var overlay = this;
         this.dragendListener = google.maps.event.addListener(map, 'dragend', function () {
           overlay._div.style.visibility = "hidden";
         });
-
       }
-
 
       Overlay.prototype.setPosition = function(position) {
         position = position || this.position;
@@ -87,9 +83,11 @@ export default {
         if (this.getProjection() && typeof position.lng == 'function') {
           var setPosition = function() {
             if (!_this.getProjection()) { return; }
+            var posOffsetX = self.offsetX === undefined || self.offsetX === null ? self.offsetX : (_this._div.offsetWidth / 2);
+            var posOffsetY = self.offsetY === undefined || self.offsetY === null ? self.offsetY : _this._div.offsetHeight - 10(); // 10px for anchor
             var posPixel = _this.getProjection().fromLatLngToDivPixel(self.position);
-            var x = Math.round(posPixel.x - (_this._div.offsetWidth/2));
-            var y = Math.round(posPixel.y - _this._div.offsetHeight - 10); // 10px for anchor
+            var x = Math.round(posPixel.x - posOffsetX);
+            var y = Math.round(posPixel.y - posOffsetY);
             _this._div.style.left = x + "px";
             _this._div.style.top = y + "px";
             _this._div.style.visibility = "visible";
@@ -120,23 +118,15 @@ export default {
         var panes = this.getPanes();
         panes.overlayLayer.appendChild(div);
         panes.overlayMouseTarget.appendChild(div);
-
-        var onClick = function() {
-          if (self.onClick !== undefined) {
-            self.onClick(self.marker);
-          }
-        };
-
-        self.touchListener = google.maps.event.addDomListener(div, 'touchstart', onClick);
-        self.clickListener = google.maps.event.addDomListener(div, 'mousedown', onClick);
-
+        if (self.onClick) {
+          self.touchListener = google.maps.event.addDomListener(div, 'click', self.onClick);
+        }
       };
 
       Overlay.prototype.draw = _.debounce(function(e) {
         if(!this._div) {
           return;
         }
-
         if (self.previousLat !== self.position.lat() && self.previousLng !== self.position.lng()) {
           var div = this._div;
           div.innerHTML = self.$el.innerHTML;
