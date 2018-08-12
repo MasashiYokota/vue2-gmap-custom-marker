@@ -4,6 +4,8 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
+
 import 'babel-polyfill';
 import Vue from 'vue';
 import * as VueGoogleMaps from 'vue2-google-maps';

@@ -24,12 +24,18 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  // output: {
+  //   path: config.build.assetsRoot,
+  //   filename: '[name].js',
+  //   publicPath: process.env.NODE_ENV === 'production'
+  //     ? config.build.assetsPublicPath
+  //     : config.dev.assetsPublicPath
+  // },
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    filename: 'multiple-sortable.js',
+    libraryTarget: 'umd',
+    library: 'multiple-sortable',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
