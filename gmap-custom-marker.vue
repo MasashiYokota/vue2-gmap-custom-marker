@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import 'babel-polyfill';
 import Vue from 'vue';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import _ from 'underscore';
